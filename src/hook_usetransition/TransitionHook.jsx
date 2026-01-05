@@ -3,7 +3,7 @@ import { Tabs, Tab } from "react-bootstrap";
 
 const TransitionHook = () => {
   const [defaultTabKey, setDefaultTabKey] = useState("home");
-  const [, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const [data, setData] = useState(null);
 
   const delay = async (ms) => {
@@ -20,7 +20,7 @@ const TransitionHook = () => {
     setDefaultTabKey(key);
     startTransition(async () => {
       if (key === "profile") {
-        await delay(5000);
+        await delay(1100);
         await fetchData();
       }
     });
@@ -47,6 +47,7 @@ const TransitionHook = () => {
           Tab content for Contact
         </Tab>
       </Tabs>
+      <p>{isPending ? "Fetching data..." : ""}</p>
     </div>
   );
 };
